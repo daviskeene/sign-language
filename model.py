@@ -20,8 +20,8 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 train_path = './data/train'
 test_path = './data/test'
 
-train_batches = ImageDataGenerator(preprocessing_function=tf.keras.applications.vgg16.preprocess_input).flow_from_directory(directory=train_path, target_size=(64,64), class_mode='categorical', batch_size=10,shuffle=True)
-test_batches = ImageDataGenerator(preprocessing_function=tf.keras.applications.vgg16.preprocess_input).flow_from_directory(directory=test_path, target_size=(64,64), class_mode='categorical', batch_size=10, shuffle=True)
+train_batches = ImageDataGenerator(preprocessing_function=tf.keras.applications.vgg16.preprocess_input).flow_from_directory(directory=train_path, target_size=(64,64), class_mode='categorical', batch_size=8,shuffle=True)
+test_batches = ImageDataGenerator(preprocessing_function=tf.keras.applications.vgg16.preprocess_input).flow_from_directory(directory=test_path, target_size=(64,64), class_mode='categorical', batch_size=8, shuffle=True)
 
 imgs, labels = next(train_batches)
 
@@ -85,7 +85,7 @@ reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=1, min_lr
 early_stop = EarlyStopping(monitor='val_loss', min_delta=0, patience=2, verbose=0, mode='auto')
 
 print("Fitting model...")
-history2 = model.fit(train_batches, epochs=10, callbacks=[reduce_lr, early_stop],  validation_data = test_batches)#, checkpoint])
+history2 = model.fit(train_batches, epochs=9, callbacks=[reduce_lr, early_stop],  validation_data = test_batches)#, checkpoint])
 imgs, labels = next(train_batches) # For getting next batch of imgs...
 
 imgs, labels = next(test_batches) # For getting next batch of imgs...
